@@ -1,0 +1,20 @@
+.coin {
+  max-width: 80px;
+}
+.main-coin {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right:30px;
+
+}
+.main-coin p {
+  font-size: 36px;
+  color:white;
+}
+
+@media (max-width:492px){
+  .coin{
+    max-width: 50px;
+  }
+}

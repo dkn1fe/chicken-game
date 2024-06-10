@@ -1,0 +1,17 @@
+.arrow {
+    display: none;
+  }
+  
+  @media (max-width: 880px) {
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 300px;
+      padding: 0 20px; 
+    }
+    .left h3, .right h3 {
+      font-size: 60px;
+    }
+  }
+  

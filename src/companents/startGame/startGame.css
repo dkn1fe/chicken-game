@@ -1,0 +1,31 @@
+.start-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+  }
+  
+  .start-game-title {
+    font-size: 52px;
+    margin-bottom: 2rem;
+    font-weight: bold;
+  }
+  
+  .play-button {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #61dafb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .play-button:hover {
+    background-color: #21a1f1;
+  }
