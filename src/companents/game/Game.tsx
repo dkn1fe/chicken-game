@@ -88,7 +88,7 @@ export const Game = () => {
 
   useEffect(() => {
     if (controlBag >= windowWidth - 150) {
-      setControlBag((controlBag) => controlBag = windowWidth - 150);
+      setControlBag(windowWidth - 150);
     } else if (controlBag < 0) {
       setControlBag(0);
     }
