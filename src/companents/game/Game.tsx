@@ -45,6 +45,9 @@ export const Game = () => {
   const resetGame = () => {
     setCount(0);
     setSpeedEgg(40);
+    if (holdInterval.current) {
+      clearInterval(holdInterval.current);
+    }
     setIsLive([
       { id: 1, img: eggImg },
       { id: 2, img: eggImg },
