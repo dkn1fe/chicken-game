@@ -4,9 +4,9 @@ import { Lives } from "../lives/Lives";
 import bagImg from "../../assets/grab.png";
 import eggImg from "../../assets/egg.png";
 import { v4 as uuidv4 } from "uuid";
-import "./game.css";
 import { GameOver } from "../gameOver/GameOver";
 import { MobileArrow } from "./mobileArrow";
+import "./game.css";
 
 export const Game = () => {
   const windowHeight = window.screen.availHeight;
@@ -19,7 +19,8 @@ export const Game = () => {
   const [count, setCount] = useState<number>(0);
   const [eggElem, setEggElems] = useState([]);
   const intervals = useRef([]);
-  const [speedEgg, setSpeedEgg] = useState<number>(50);
+  const holdInterval = useRef(null);
+  const [speedEgg, setSpeedEgg] = useState<number>(40);
   const [isLive, setIsLive] = useState([
     {
       id: 1,
@@ -36,16 +37,14 @@ export const Game = () => {
   ]);
 
   useEffect(() => {
-    if (count >= 10) {
-      setSpeedEgg((speedEgg) => speedEgg - 10);
-    } else if (count >= 20) {
+    if (count % 10 === 0) {
       setSpeedEgg((speedEgg) => speedEgg - 10);
     }
   }, [count]);
 
   const resetGame = () => {
     setCount(0);
-    setSpeedEgg(50);
+    setSpeedEgg(40);
     setIsLive([
       { id: 1, img: eggImg },
       { id: 2, img: eggImg },
@@ -87,8 +86,10 @@ export const Game = () => {
   };
 
   useEffect(() => {
-    if (controlBag >= windowWidth - 150) {
-      setControlBag(windowWidth - 150);
+    if (controlBag >= windowWidth - 100) {
+      setControlBag(
+        windowWidth >= 1000 ? windowWidth - 250 : windowWidth - 100
+      );
     } else if (controlBag < 0) {
       setControlBag(0);
     }
@@ -105,9 +106,9 @@ export const Game = () => {
       const elementRect = el.getBoundingClientRect();
       if (
         elementRect.bottom >= blockRect.top + 40 &&
-        elementRect.top <= blockRect.bottom + 80 &&
-        elementRect.right >= blockRect.left + 40 &&
-        elementRect.left <= blockRect.right + 40
+        elementRect.top <= blockRect.bottom + 120 &&
+        elementRect.right >= blockRect.left + 80 &&
+        elementRect.left <= blockRect.right + 80
       ) {
         //@ts-ignore
         deleteImg(eggElem[i]?.id);
@@ -203,10 +204,32 @@ export const Game = () => {
 
   const onChangeRightArrow = () => {
     setControlBag((controlBag) => controlBag + 10);
+    console.log("touch");
   };
 
   const onChangeLeftArrow = () => {
     setControlBag((controlBag) => controlBag - 10);
+    console.log("touch");
+  };
+
+  const onLeftHold = () => {
+    //@ts-ignore
+    holdInterval.current = setInterval(() => {
+      setControlBag((controlBag) => controlBag - 10);
+    }, 100);
+  };
+
+  const onRightHold = () => {
+    //@ts-ignore
+    holdInterval.current = setInterval(() => {
+      setControlBag((controlBag) => controlBag + 10);
+    }, 100);
+  };
+
+  const stopHold = () => {
+    if (holdInterval.current) {
+      clearInterval(holdInterval.current);
+    }
   };
 
   return (
@@ -248,7 +271,13 @@ export const Game = () => {
             <img className="bag-img" src={bagImg} />
           </div>
           <div className="mobile-arrow">
-            <MobileArrow left={onChangeLeftArrow} right={onChangeRightArrow} />
+            <MobileArrow
+              touchLeft={onLeftHold}
+              touchRight={onRightHold}
+              stopHold={stopHold}
+              left={onChangeLeftArrow}
+              right={onChangeRightArrow}
+            />
           </div>
         </div>
       )}

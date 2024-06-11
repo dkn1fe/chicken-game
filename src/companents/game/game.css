@@ -45,11 +45,13 @@
     position: absolute;
     z-index: 1;
     bottom: -10px;
+    left:0px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap:30px;
 }
 
-@media (max-width:492px){
+@media (max-width:520px){
      .bag-img{
         max-width: 100px;
         max-height: 100px;

@@ -1,17 +1,30 @@
 .arrow {
-    display: none;
+  display: none;
+}
+
+.container{
+  max-width: 800px;
+}
+
+@media (max-width: 880px) {
+  .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:100px;
   }
-  
-  @media (max-width: 880px) {
-    .arrow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 300px;
-      padding: 0 20px; 
-    }
-    .left h3, .right h3 {
-      font-size: 60px;
-    }
+  .right {
+    padding: 10px 15px;
+    background-color: transparent;
+    user-select: none;
+    font-size: 80px;
+    border: none;
   }
-  
+  .left {
+    padding: 10px 15px;
+    font-size: 80px;
+    border: none;
+    background-color: transparent;
+    user-select: none;
+  }
+}

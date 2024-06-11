@@ -4,19 +4,45 @@ import "./mobileArrow.css";
 interface MobileArrowProps {
   left: () => void;
   right: () => void;
+  touchRight: () => void;
+  touchLeft: () => void;
+  stopHold: () => void;
 }
 
-export const MobileArrow: FC<MobileArrowProps> = ({ left, right }) => {
+export const MobileArrow: FC<MobileArrowProps> = ({
+  left,
+  right,
+  touchLeft,
+  touchRight,
+  stopHold,
+}) => {
   return (
     <>
+    <div className="container">
       <div className="arrow">
-        <div className="left">
-        <h3 onClick={left}>←</h3>
-        </div>
-        <div className="right">
-        <h3 onClick={right}>→</h3>
-        </div>
+        <button
+          onClick={left}
+          className="left"
+          onMouseDown={touchLeft}
+          onMouseUp={stopHold}
+          onTouchStart={touchLeft}
+          onTouchEnd={stopHold}
+        >
+          ←
+        </button>
+        <button
+          onClick={right}
+          className="right"
+          onMouseDown={touchRight}
+          onMouseUp={stopHold}
+          onTouchStart={touchRight}
+          onTouchEnd={stopHold}
+        >
+          →
+        </button>
       </div>
+    </div>
+
     </>
   );
 };
